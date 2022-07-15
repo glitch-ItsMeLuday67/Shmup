@@ -306,34 +306,20 @@ pygame.mixer.music.set_volume(0.20)
 game_over = True
 
 def display_end_screen():
-    if player.lives == 0:
-        screen.blit(background,background_rect)
-        draw_text(screen,"Game",140,width/2,height/6)
-        draw_text(screen,"Over",100,width/2,height/3.2)
-        draw_text(screen,"Press any key to restart",35,width/2,height*3/4)
-        draw_text(screen,"Arrow keys to move, space, up arrow, return to shoot",20,width/2,height/2)
-        pygame.display.flip()
-        waiting = True
-        while waiting:
-            clock.tick(fps)
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                if event.type == pygame.KEYUP:
-                    waiting = False
-    else:
-        screen.blit(background,background_rect)
-        draw_text(screen,"Press any key to start",35,width/2,height*3/4)
-        draw_text(screen,"Arrow keys to move, space, up arrow, return to shoot",20,width/2,height/2)
-        pygame.display.flip()
-        waiting = True
-        while waiting:
-            clock.tick(fps)
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                if event.type == pygame.KEYUP:
-                    waiting = False
+    screen.blit(background, background_rect)
+    draw_text(screen, "SHMUP!", 64, width / 2, height / 4)
+    draw_text(screen, "Arrow keys move, Space to fire", 22,
+              width / 2, height / 2)
+    draw_text(screen, "Press a key to begin", 18, width / 2, height * 3 / 4)
+    pygame.display.flip()
+    waiting = True
+    while waiting:
+        clock.tick(fps)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.KEYUP:
+                waiting = False
         
 while running:
     if game_over:
@@ -345,9 +331,10 @@ while running:
         powerups = pygame.sprite.Group()
         player = Player()
         all_sprites.add(player)
-        score = 0
-        for i in range(10):
+        for i in range(8):
             new_mob()
+        score = 0
+
     #Keep loop running at the right speed
     clock.tick(fps)
     for event in pygame.event.get():
@@ -397,7 +384,7 @@ while running:
                 player.hide()
         if player.lives == 0:
             game_over = True
-            running = False
+            # running = False
     # screen.fill(lavender)
     screen.blit(background,background_rect)
     all_sprites.draw(screen)
